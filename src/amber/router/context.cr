@@ -22,6 +22,16 @@ class HTTP::Server::Context
     merge_route_params
   end
 
+  def server
+    Amber::Server.instance
+  end
+
+  def session
+    Amber::Router::Session::StoreFactory.build(
+      cookies, server.session_key, server.session_store, server.session_expires, server.secret
+    )
+  end
+
   def invalid_route?
     !route.payload?
   end

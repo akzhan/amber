@@ -34,6 +34,9 @@ module Amber
     property host : String = "0.0.0.0"
     property port_reuse : Bool = false
     getter key_generator : Amber::Support::CachingKeyGenerator
+    property session_key : String
+    property session_expires : Time::Span
+    property session_store : Symbol
 
     def initialize
       @app_path = __FILE__
@@ -45,6 +48,9 @@ module Amber
       @secret = ENV["SECRET_KEY_BASE"]? || SecureRandom.hex(128)
       @host = "0.0.0.0"
       @port_reuse = true
+      @session_key = "#{project_name}.session"
+      @session_store = :cookie
+      @session_expires = 2.hours
       @key_generator = Amber::Support::CachingKeyGenerator.new(
         Amber::Support::KeyGenerator.new(secret, 1000)
       )

@@ -14,7 +14,7 @@ module Amber::Controller
     protected getter context : HTTP::Server::Context
     protected getter params : Amber::Validators::Params
     protected getter flash : Amber::Router::Flash::Params
-    protected getter session : Amber::Router::Session::Params
+    protected getter session : Amber::Router::Session::Store
     protected getter cookies : Amber::Router::Cookies::Store
 
     def initialize(@context : HTTP::Server::Context)
